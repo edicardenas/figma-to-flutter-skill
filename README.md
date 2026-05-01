@@ -74,6 +74,7 @@ The recommended stack is:
 ├── scripts/
 │   ├── build-skill.sh
 │   ├── check-bundle.sh
+│   ├── install-bundle.sh
 │   └── validate-skill.sh
 └── .github/workflows/validate-skill.yml
 ```
@@ -85,7 +86,11 @@ The recommended stack is:
 
 ## Installation
 
-Official install via `skills`:
+There are two supported installation paths.
+
+### Option A: Install only this skill
+
+Use this if you only want `figma-to-flutter`:
 
 ```bash
 npx skills add https://github.com/edicardenas/figma-to-flutter-skill --skill figma-to-flutter
@@ -97,9 +102,38 @@ For a global Codex install without prompts:
 npx skills add https://github.com/edicardenas/figma-to-flutter-skill --skill figma-to-flutter -a codex -g -y
 ```
 
-See [docs/INSTALLATION.md](docs/INSTALLATION.md) for more options.
+Important:
 
-If you want the full required stack in one step, see [docs/BUNDLE-INSTALL.md](docs/BUNDLE-INSTALL.md).
+- This installs only `figma-to-flutter`
+- It does not install `flutter-architecture`
+- It does not install `flutter-layout`
+- It does not install `flutter-performance`
+
+### Option B: Install the full required stack
+
+Use this if you want the recommended production workflow:
+
+1. Clone this repository
+2. Run the bundle installer
+3. Verify the bundle
+4. Restart Codex
+
+```bash
+git clone https://github.com/edicardenas/figma-to-flutter-skill.git
+cd figma-to-flutter-skill
+./scripts/install-bundle.sh
+./scripts/check-bundle.sh
+```
+
+This installs:
+
+- `figma-to-flutter`
+- `flutter-architecture`
+- `flutter-layout`
+- `flutter-performance`
+
+See [docs/INSTALLATION.md](docs/INSTALLATION.md) for the full step-by-step guide.
+See [docs/BUNDLE-INSTALL.md](docs/BUNDLE-INSTALL.md) for the transparent bundle details.
 
 ## Usage
 
@@ -143,7 +177,13 @@ This repo also includes [scripts/install-bundle.sh](scripts/install-bundle.sh) t
 - `flutter-layout`
 - `flutter-performance`
 
-Use it when you want a reproducible install for the full workflow instead of relying on manual setup. The `npx skills add ... --skill figma-to-flutter` command installs only this skill, not the 3 companion skills.
+Use it when you want a reproducible install for the full workflow instead of relying on manual setup.
+
+Transparent behavior:
+
+- `npx skills add ... --skill figma-to-flutter` installs only this skill
+- `./scripts/install-bundle.sh` installs this skill plus the 3 companion skills
+- `./scripts/check-bundle.sh` fails if any required skill is missing
 
 You can verify the installation state with [scripts/check-bundle.sh](scripts/check-bundle.sh). It fails if any required companion skill is missing.
 

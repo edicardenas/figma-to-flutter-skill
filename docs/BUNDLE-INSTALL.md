@@ -1,37 +1,72 @@
 # Bundle Installation
 
-## Short answer
+## Goal
+
+Install the complete recommended stack in a transparent way:
+
+- `figma-to-flutter`
+- `flutter-architecture`
+- `flutter-layout`
+- `flutter-performance`
+
+## Why this exists
 
 You cannot reliably force one skill to auto-install other skills from inside `SKILL.md`.
 
-The skill format used here is instruction-first. It does not provide a native, guaranteed `skillDependencies` mechanism for installing other skills automatically at runtime.
-
-So the correct solution is to publish and use a **bundle installer**.
+So this repository uses a bundle installer instead of pretending dependency resolution is automatic.
 
 ## What this repo now provides
 
-Use:
+Follow these steps.
+
+### Step 1: Clone the repo
+
+```bash
+git clone https://github.com/edicardenas/figma-to-flutter-skill.git
+cd figma-to-flutter-skill
+```
+
+### Step 2: Run the installer
 
 ```bash
 ./scripts/install-bundle.sh
 ```
 
-That does two things:
+### Step 3: Verify the installed bundle
 
-1. Installs this local skill into your Codex skills directory
-2. Installs the required companion skills from `flutter/skills`
+```bash
+./scripts/check-bundle.sh
+```
+
+### Step 4: Restart Codex
+
+Codex needs to restart to pick up newly installed skills.
+
+## What `install-bundle.sh` does
+
+It does exactly this:
+
+1. Installs this repository's local `figma-to-flutter` skill into your Codex skills directory
+2. Installs `flutter-architecture` from `flutter/skills`
+3. Installs `flutter-layout` from `flutter/skills`
+4. Installs `flutter-performance` from `flutter/skills`
+5. Runs `check-bundle.sh`
+6. Fails if any required skill is still missing
+
+## What `check-bundle.sh` verifies
+
+It checks that these skill folders exist in the target skills directory:
+
+- `figma-to-flutter`
+- `flutter-architecture`
+- `flutter-layout`
+- `flutter-performance`
 
 Required companion skills:
 
 - `flutter-architecture`
 - `flutter-layout`
 - `flutter-performance`
-
-After installation, verify the result with:
-
-```bash
-./scripts/check-bundle.sh
-```
 
 ## How the companion skills are installed
 
@@ -63,11 +98,19 @@ Install only this repo's local skill:
 ./scripts/install-bundle.sh --local-only
 ```
 
+This installs only `figma-to-flutter`.
+
 Install only the companion skills:
 
 ```bash
 ./scripts/install-bundle.sh --companions-only
 ```
+
+This installs only:
+
+- `flutter-architecture`
+- `flutter-layout`
+- `flutter-performance`
 
 Install into a custom skills directory:
 
@@ -83,7 +126,9 @@ Check a custom skills directory:
 
 ## Important
 
-After installation, restart Codex so the runtime picks up the newly installed skills.
+- `npx skills add ... --skill figma-to-flutter` installs only this skill
+- `install-bundle.sh` is the supported way to install the full stack from this repo
+- After installation, restart Codex so the runtime picks up the newly installed skills
 
 ## Recommendation for public users
 

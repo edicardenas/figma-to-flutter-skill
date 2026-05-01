@@ -1,15 +1,18 @@
 # Installation
 
+This repository supports two installation modes:
+
+1. Install only `figma-to-flutter`
+2. Install the full required stack: `figma-to-flutter` + companion skills
+
 ## Prerequisites
 
 You need:
 
 - A runtime that supports custom skills
 - The Figma MCP connector enabled in that runtime
-- The companion skills available if you want the full production workflow:
-  - `flutter-architecture`
-  - `flutter-layout`
-  - `flutter-performance`
+- Node.js and `npx` if you want to run the bundle installer
+- The companion skills available if you want the full production workflow
 
 ## Companion skill links
 
@@ -17,33 +20,72 @@ You need:
 - [`flutter-layout`](https://skills.sh/flutter/skills/flutter-layout)
 - [`flutter-performance`](https://skills.sh/flutter/skills/flutter-performance)
 
-## Install from source
+## Option A: Install only `figma-to-flutter`
 
-Clone the repo and package the skill:
+Step 1. Install the skill:
+
+```bash
+npx skills add https://github.com/edicardenas/figma-to-flutter-skill --skill figma-to-flutter
+```
+
+Step 2. If you want a global Codex install without prompts, use:
+
+```bash
+npx skills add https://github.com/edicardenas/figma-to-flutter-skill --skill figma-to-flutter -a codex -g -y
+```
+
+Step 3. Restart Codex.
+
+Important:
+
+- This path installs only `figma-to-flutter`
+- It does not install `flutter-architecture`
+- It does not install `flutter-layout`
+- It does not install `flutter-performance`
+
+## Option B: Install the full required stack
+
+Use this if you want the recommended end-to-end workflow.
+
+Step 1. Clone the repository:
 
 ```bash
 git clone https://github.com/edicardenas/figma-to-flutter-skill.git
 cd figma-to-flutter-skill
-./scripts/validate-skill.sh
-./scripts/build-skill.sh
 ```
 
-The archive will be generated at:
-
-```text
-dist/figma-to-flutter.skill
-```
-
-## Install the full required bundle
-
-If you want this skill plus its required companion skills in one step:
+Step 2. Run the bundle installer:
 
 ```bash
 ./scripts/install-bundle.sh
+```
+
+Step 3. Verify that all required skills are present:
+
+```bash
 ./scripts/check-bundle.sh
 ```
 
-See [docs/BUNDLE-INSTALL.md](BUNDLE-INSTALL.md) for details.
+Step 4. Restart Codex.
+
+Expected installed set:
+
+- `figma-to-flutter`
+- `flutter-architecture`
+- `flutter-layout`
+- `flutter-performance`
+
+See [docs/BUNDLE-INSTALL.md](BUNDLE-INSTALL.md) for implementation details.
+
+## What the bundle installer actually does
+
+It is intentionally explicit:
+
+1. Copies this repository's local `figma-to-flutter` skill into your skills directory
+2. Installs `flutter-architecture` from `flutter/skills`
+3. Installs `flutter-layout` from `flutter/skills`
+4. Installs `flutter-performance` from `flutter/skills`
+5. Runs `check-bundle.sh` and fails if any required skill is missing
 
 ## Install into your local skills directory
 
@@ -54,13 +96,3 @@ Recommended folder name:
 ```text
 figma-to-flutter
 ```
-
-## Runtime expectations
-
-This skill assumes:
-
-- Figma specs can be read from MCP/dev mode
-- The project already has a Flutter design system or widget library
-- The user wants faithful visual translation, not architectural invention
-
-If those assumptions are false, the skill should stop and report the gap instead of guessing.
