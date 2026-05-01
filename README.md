@@ -85,7 +85,19 @@ The recommended stack is:
 
 ## Installation
 
-See [docs/INSTALLATION.md](docs/INSTALLATION.md).
+Official install via `skills`:
+
+```bash
+npx skills add https://github.com/edicardenas/figma-to-flutter-skill --skill figma-to-flutter
+```
+
+For a global Codex install without prompts:
+
+```bash
+npx skills add https://github.com/edicardenas/figma-to-flutter-skill --skill figma-to-flutter -a codex -g -y
+```
+
+See [docs/INSTALLATION.md](docs/INSTALLATION.md) for more options.
 
 If you want the full required stack in one step, see [docs/BUNDLE-INSTALL.md](docs/BUNDLE-INSTALL.md).
 
@@ -131,7 +143,7 @@ This repo also includes [scripts/install-bundle.sh](scripts/install-bundle.sh) t
 - `flutter-layout`
 - `flutter-performance`
 
-Use it when you want a reproducible install for the full workflow instead of relying on manual setup.
+Use it when you want a reproducible install for the full workflow instead of relying on manual setup. The `npx skills add ... --skill figma-to-flutter` command installs only this skill, not the 3 companion skills.
 
 You can verify the installation state with [scripts/check-bundle.sh](scripts/check-bundle.sh). It fails if any required companion skill is missing.
 
