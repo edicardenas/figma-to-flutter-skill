@@ -62,6 +62,7 @@ The recommended stack is:
 │       ├── ds-mapping-guide.md
 │       └── mock-data-patterns.md
 ├── docs/
+│   ├── BUNDLE-INSTALL.md
 │   ├── INSTALLATION.md
 │   ├── RELEASING.md
 │   └── USAGE.md
@@ -84,6 +85,8 @@ The recommended stack is:
 ## Installation
 
 See [docs/INSTALLATION.md](docs/INSTALLATION.md).
+
+If you want the full required stack in one step, see [docs/BUNDLE-INSTALL.md](docs/BUNDLE-INSTALL.md).
 
 ## Usage
 
@@ -117,6 +120,17 @@ dist/figma-to-flutter.skill
 See [docs/RELEASING.md](docs/RELEASING.md).
 
 Pushing a tag like `v0.1.0` now triggers a GitHub Actions workflow that builds `figma-to-flutter.skill` and attaches it to the GitHub Release automatically.
+
+## Companion installation
+
+This repo also includes [scripts/install-bundle.sh](scripts/install-bundle.sh) to install:
+
+- this local `figma-to-flutter` skill
+- `flutter-architecture`
+- `flutter-layout`
+- `flutter-performance`
+
+Use it when you want a reproducible install for the full workflow instead of relying on manual setup.
 
 ## Public repo checklist
 

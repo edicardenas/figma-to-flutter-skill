@@ -34,6 +34,16 @@ The archive will be generated at:
 dist/figma-to-flutter.skill
 ```
 
+## Install the full required bundle
+
+If you want this skill plus its required companion skills in one step:
+
+```bash
+./scripts/install-bundle.sh
+```
+
+See [docs/BUNDLE-INSTALL.md](BUNDLE-INSTALL.md) for details.
+
 ## Install into your local skills directory
 
 The exact location depends on your runtime. In most Codex-style environments, install the extracted folder or packaged `.skill` where custom skills are loaded.
