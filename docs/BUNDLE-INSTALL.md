@@ -27,6 +27,12 @@ Required companion skills:
 - `flutter-layout`
 - `flutter-performance`
 
+After installation, verify the result with:
+
+```bash
+./scripts/check-bundle.sh
+```
+
 ## How the companion skills are installed
 
 The script uses the public install commands exposed on `skills.sh`:
@@ -45,6 +51,12 @@ Install everything:
 ./scripts/install-bundle.sh
 ```
 
+Verify:
+
+```bash
+./scripts/check-bundle.sh
+```
+
 Install only this repo's local skill:
 
 ```bash
@@ -61,6 +73,12 @@ Install into a custom skills directory:
 
 ```bash
 ./scripts/install-bundle.sh --dest /path/to/skills
+```
+
+Check a custom skills directory:
+
+```bash
+./scripts/check-bundle.sh --dest /path/to/skills
 ```
 
 ## Important

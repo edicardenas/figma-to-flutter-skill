@@ -73,6 +73,7 @@ The recommended stack is:
 │       └── generated/
 ├── scripts/
 │   ├── build-skill.sh
+│   ├── check-bundle.sh
 │   └── validate-skill.sh
 └── .github/workflows/validate-skill.yml
 ```
@@ -131,6 +132,8 @@ This repo also includes [scripts/install-bundle.sh](scripts/install-bundle.sh) t
 - `flutter-performance`
 
 Use it when you want a reproducible install for the full workflow instead of relying on manual setup.
+
+You can verify the installation state with [scripts/check-bundle.sh](scripts/check-bundle.sh). It fails if any required companion skill is missing.
 
 ## Public repo checklist
 

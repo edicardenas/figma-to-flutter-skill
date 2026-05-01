@@ -89,4 +89,5 @@ if [[ ${INSTALL_COMPANIONS} -eq 1 ]]; then
 fi
 
 echo "Bundle installation complete."
+"${ROOT_DIR}/scripts/check-bundle.sh" --dest "${SKILLS_DEST_DIR}"
 echo "Restart Codex to pick up the installed skills."

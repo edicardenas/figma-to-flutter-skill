@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CODEX_HOME_DIR="${CODEX_HOME:-$HOME/.codex}"
+SKILLS_DIR="${CODEX_HOME_DIR}/skills"
+
+REQUIRED_SKILLS=(
+  "figma-to-flutter"
+  "flutter-architecture"
+  "flutter-layout"
+  "flutter-performance"
+)
+
+usage() {
+  cat <<'EOF'
+Check whether the full figma-to-flutter skill bundle is installed.
+
+Usage:
+  ./scripts/check-bundle.sh [--dest <skills-dir>] [--no-local]
+
+Options:
+  --dest <dir>  Override the skills directory. Default: $CODEX_HOME/skills or ~/.codex/skills
+  --no-local    Do not require the local figma-to-flutter skill; check only the companion skills
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --dest)
+      SKILLS_DIR="${2:?missing value for --dest}"
+      shift 2
+      ;;
+    --no-local)
+      REQUIRED_SKILLS=(
+        "flutter-architecture"
+        "flutter-layout"
+        "flutter-performance"
+      )
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown argument: $1" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
+done
+
+if [[ ! -d "${SKILLS_DIR}" ]]; then
+  echo "Skills directory not found: ${SKILLS_DIR}" >&2
+  exit 1
+fi
+
+MISSING=()
+
+for skill in "${REQUIRED_SKILLS[@]}"; do
+  if [[ ! -d "${SKILLS_DIR}/${skill}" ]]; then
+    MISSING+=("${skill}")
+  fi
+done
+
+if [[ ${#MISSING[@]} -gt 0 ]]; then
+  echo "Missing required skills in ${SKILLS_DIR}:" >&2
+  for skill in "${MISSING[@]}"; do
+    echo "  - ${skill}" >&2
+  done
+  exit 1
+fi
+
+echo "Bundle check passed."
+echo "Installed skills found in ${SKILLS_DIR}:"
+for skill in "${REQUIRED_SKILLS[@]}"; do
+  echo "  - ${skill}"
+done

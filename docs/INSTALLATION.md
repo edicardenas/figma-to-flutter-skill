@@ -40,6 +40,7 @@ If you want this skill plus its required companion skills in one step:
 
 ```bash
 ./scripts/install-bundle.sh
+./scripts/check-bundle.sh
 ```
 
 See [docs/BUNDLE-INSTALL.md](BUNDLE-INSTALL.md) for details.
