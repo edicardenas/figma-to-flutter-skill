@@ -63,7 +63,13 @@ The recommended stack is:
 │       └── mock-data-patterns.md
 ├── docs/
 │   ├── INSTALLATION.md
+│   ├── RELEASING.md
 │   └── USAGE.md
+├── examples/
+│   └── catalog-home/
+│       ├── audit-report.md
+│       ├── figma-spec.md
+│       └── generated/
 ├── scripts/
 │   ├── build-skill.sh
 │   └── validate-skill.sh
@@ -83,6 +89,16 @@ See [docs/INSTALLATION.md](docs/INSTALLATION.md).
 
 See [docs/USAGE.md](docs/USAGE.md).
 
+## Example
+
+See [examples/catalog-home/README.md](examples/catalog-home/README.md) for a worked end-to-end sample with:
+
+- frame/spec summary
+- DS audit output
+- generated Flutter file structure
+
+This gives the repo a concrete public artifact users can inspect before trying the skill in their own project.
+
 ## Build the distributable `.skill`
 
 ```bash
@@ -96,6 +112,12 @@ This creates:
 dist/figma-to-flutter.skill
 ```
 
+## Releases
+
+See [docs/RELEASING.md](docs/RELEASING.md).
+
+Pushing a tag like `v0.1.0` now triggers a GitHub Actions workflow that builds `figma-to-flutter.skill` and attaches it to the GitHub Release automatically.
+
 ## Public repo checklist
 
 - Source skill folder tracked in git
@@ -108,8 +130,7 @@ dist/figma-to-flutter.skill
 ## Recommended next improvements
 
 - Add screenshots/GIFs of the workflow in action
-- Add a real example from a sample Figma frame to generated Flutter files
-- Add semver tags and GitHub releases for each packaged `.skill`
+- Replace the example with a captured frame from a public Figma file
 - Add installation instructions for the exact target runtime where you plan to distribute it
 
 ## License
