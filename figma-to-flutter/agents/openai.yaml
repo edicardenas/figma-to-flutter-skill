@@ -1,0 +1,4 @@
+interface:
+  display_name: "Figma to Flutter"
+  short_description: "Translate Figma screens into Flutter UI"
+  default_prompt: "Use $figma-to-flutter to audit this Figma screen and translate it into Flutter using the existing design system widgets first."
