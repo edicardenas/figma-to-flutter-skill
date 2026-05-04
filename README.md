@@ -32,9 +32,9 @@ npx skills add https://github.com/edicardenas/figma-to-flutter-skill --skill fig
 Important:
 
 - This installs only `figma-to-flutter`
-- It does not install `flutter-architecture`
-- It does not install `flutter-layout`
-- It does not install `flutter-performance`
+- It does not install the recommended architecture companion
+- It does not install the recommended layout companion
+- It does not install the recommended performance fallback companion
 
 ### Option B: Install the full required stack
 
@@ -55,9 +55,9 @@ cd figma-to-flutter-skill
 This installs:
 
 - `figma-to-flutter`
-- `flutter-architecture`
-- `flutter-layout`
-- `flutter-performance`
+- `flutter-apply-architecture-best-practices` from `flutter/skills`
+- `flutter-build-responsive-layout` from `flutter/skills`
+- `flutter` from `mindrally/skills` as the current installable performance/general Flutter fallback
 
 See [docs/INSTALLATION.md](docs/INSTALLATION.md) for the full step-by-step guide.
 See [docs/BUNDLE-INSTALL.md](docs/BUNDLE-INSTALL.md) for the transparent bundle details.
@@ -91,16 +91,16 @@ This skill takes the opposite approach. It forces a structured workflow:
 
 This skill is intentionally scoped. For a full production workflow, pair it with these companion skills:
 
-- [`flutter-architecture`](https://skills.sh/flutter/skills/flutter-architecture) for feature structure, routing, state, and architectural boundaries
-- [`flutter-layout`](https://skills.sh/flutter/skills/flutter-layout) for responsive and adaptive behavior
-- [`flutter-performance`](https://skills.sh/flutter/skills/flutter-performance) for rebuild control, rendering cost, and list/image optimization
+- [`flutter-apply-architecture-best-practices`](https://skills.sh/flutter/skills/flutter-apply-architecture-best-practices) for feature structure, layering, routing boundaries, and architectural discipline
+- [`flutter-build-responsive-layout`](https://skills.sh/flutter/skills/flutter-build-responsive-layout) for responsive and adaptive behavior
+- [`flutter`](https://skills.sh/mindrally/skills/flutter) from `mindrally/skills` as the current installable fallback that includes Flutter performance guidance
 
 The recommended stack is:
 
-1. `flutter-architecture`
+1. `flutter-apply-architecture-best-practices`
 2. `figma-to-flutter`
-3. `flutter-layout`
-4. `flutter-performance`
+3. `flutter-build-responsive-layout`
+4. `mindrally/skills@flutter`
 
 ## Usage
 
@@ -140,16 +140,16 @@ Pushing a tag like `v0.1.0` now triggers a GitHub Actions workflow that builds `
 This repo also includes [scripts/install-bundle.sh](scripts/install-bundle.sh) to install:
 
 - this local `figma-to-flutter` skill
-- `flutter-architecture`
-- `flutter-layout`
-- `flutter-performance`
+- `flutter-apply-architecture-best-practices`
+- `flutter-build-responsive-layout`
+- `mindrally/skills@flutter`
 
 Use it when you want a reproducible install for the full workflow instead of relying on manual setup.
 
 Transparent behavior:
 
 - `npx skills add ... --skill figma-to-flutter` installs only this skill
-- `./scripts/install-bundle.sh` installs this skill plus the 3 companion skills
+- `./scripts/install-bundle.sh` installs this skill plus the 3 currently installable companion equivalents
 - `./scripts/check-bundle.sh` fails if any required skill is missing
 
 You can verify the installation state with [scripts/check-bundle.sh](scripts/check-bundle.sh). It fails if any required companion skill is missing.

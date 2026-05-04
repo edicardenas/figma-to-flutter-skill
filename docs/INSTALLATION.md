@@ -16,9 +16,9 @@ You need:
 
 ## Companion skill links
 
-- [`flutter-architecture`](https://skills.sh/flutter/skills/flutter-architecture)
-- [`flutter-layout`](https://skills.sh/flutter/skills/flutter-layout)
-- [`flutter-performance`](https://skills.sh/flutter/skills/flutter-performance)
+- [`flutter-apply-architecture-best-practices`](https://skills.sh/flutter/skills/flutter-apply-architecture-best-practices)
+- [`flutter-build-responsive-layout`](https://skills.sh/flutter/skills/flutter-build-responsive-layout)
+- [`flutter`](https://skills.sh/mindrally/skills/flutter)
 
 ## Option A: Install only `figma-to-flutter`
 
@@ -39,9 +39,9 @@ Step 3. Restart Codex.
 Important:
 
 - This path installs only `figma-to-flutter`
-- It does not install `flutter-architecture`
-- It does not install `flutter-layout`
-- It does not install `flutter-performance`
+- It does not install the recommended architecture companion
+- It does not install the recommended layout companion
+- It does not install the recommended performance fallback companion
 
 ## Option B: Install the full required stack
 
@@ -71,9 +71,9 @@ Step 4. Restart Codex.
 Expected installed set:
 
 - `figma-to-flutter`
-- `flutter-architecture`
-- `flutter-layout`
-- `flutter-performance`
+- `flutter-apply-architecture-best-practices`
+- `flutter-build-responsive-layout`
+- `flutter`
 
 See [docs/BUNDLE-INSTALL.md](BUNDLE-INSTALL.md) for implementation details.
 
@@ -82,9 +82,9 @@ See [docs/BUNDLE-INSTALL.md](BUNDLE-INSTALL.md) for implementation details.
 It is intentionally explicit:
 
 1. Copies this repository's local `figma-to-flutter` skill into your skills directory
-2. Installs `flutter-architecture` from `flutter/skills`
-3. Installs `flutter-layout` from `flutter/skills`
-4. Installs `flutter-performance` from `flutter/skills`
+2. Installs `flutter-apply-architecture-best-practices` from `flutter/skills`
+3. Installs `flutter-build-responsive-layout` from `flutter/skills`
+4. Installs `flutter` from `mindrally/skills` as the current installable fallback that includes performance guidance
 5. Runs `check-bundle.sh` and fails if any required skill is missing
 
 ## Install into your local skills directory

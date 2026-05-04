@@ -1,7 +1,7 @@
 ---
 name: figma-to-flutter
 description: >
-  Use this skill whenever the user wants to translate a Figma design, frame, screen, or component into Flutter code. Triggers include: "pasa este diseño a Flutter", "convierte este frame", "implementa esta pantalla desde Figma", "traduce el diseño a código", "pixel perfect desde Figma", "implementa según el diseño", or any time the user shares a Figma link, screenshot, or dev-mode spec and wants Flutter output. Also triggers when auditing which Figma design system components are missing Flutter widget implementations. This skill handles ONLY visual fidelity and design translation — for architecture, folder structure, state management, and performance, defer to the flutter-architecture, flutter-layout, and flutter-performance skills.
+  Use this skill whenever the user wants to translate a Figma design, frame, screen, or component into Flutter code. Triggers include: "pasa este diseño a Flutter", "convierte este frame", "implementa esta pantalla desde Figma", "traduce el diseño a código", "pixel perfect desde Figma", "implementa según el diseño", or any time the user shares a Figma link, screenshot, or dev-mode spec and wants Flutter output. Also triggers when auditing which Figma design system components are missing Flutter widget implementations. This skill handles ONLY visual fidelity and design translation — for architecture, folder structure, state management, and performance, defer to the companion architecture/layout/performance skills documented in this repo.
 ---
 
 # Figma → Flutter Skill
@@ -14,20 +14,20 @@ Este skill traduce diseños de Figma a código Flutter **pixel-perfect**, usando
 
 | ✅ Este skill hace | ❌ Defer a otro skill |
 |---|---|
-| Traducción visual fiel del diseño | Arquitectura de carpetas → `flutter-architecture` |
-| Uso correcto de tokens del DS | Gestión de estado → `flutter-architecture` |
-| Mapeo Figma component → Flutter widget | Responsive/adaptive layout → `flutter-layout` |
-| Mock data con Model + factory | Optimización de renders → `flutter-performance` |
-| Auditoría de componentes faltantes | Navegación y routing → `flutter-architecture` |
+| Traducción visual fiel del diseño | Arquitectura de carpetas → `flutter-apply-architecture-best-practices` |
+| Uso correcto de tokens del DS | Gestión de estado → `flutter-apply-architecture-best-practices` |
+| Mapeo Figma component → Flutter widget | Responsive/adaptive layout → `flutter-build-responsive-layout` |
+| Mock data con Model + factory | Optimización de renders → `mindrally/skills@flutter` |
+| Auditoría de componentes faltantes | Navegación y routing → `flutter-apply-architecture-best-practices` |
 | Extracción de specs desde MCP Figma | |
 
 ## Companion skills
 
 Para una implementación Flutter lista para producción, este skill debe trabajar junto con:
 
-- `flutter-architecture` → estructura de carpetas, navegación, estado y composición del feature
-- `flutter-layout` → responsive/adaptive layout, breakpoints y comportamiento multi-device
-- `flutter-performance` → optimización de rebuilds, listas, imágenes y render cost
+- `flutter-apply-architecture-best-practices` → estructura de capas, límites del feature, arquitectura y disciplina de composición
+- `flutter-build-responsive-layout` → responsive/adaptive layout, breakpoints y comportamiento multi-device
+- `mindrally/skills@flutter` → fallback actual instalable para guía Flutter general, incluyendo optimización de rebuilds, listas, imágenes y render cost
 
 Si alguno no está disponible, continuar solo con la traducción visual y dejar explícito en el reporte final qué partes quedaron fuera del alcance.
 
@@ -113,7 +113,7 @@ Necesitan atención: 3/5 componentes
 
 ## Paso 3: Estructura de archivos de salida
 
-Siguiendo la estructura definida en `flutter-architecture` (no redefinir aquí):
+Siguiendo la estructura definida en el companion de arquitectura (no redefinir aquí):
 
 ```
 lib/
@@ -129,7 +129,7 @@ lib/
           [screen_name]_model.dart       ← mock data + factories
 ```
 
-Si `flutter-architecture` define una estructura diferente, seguirla.
+Si el companion de arquitectura define una estructura diferente, seguirla.
 
 ---
 

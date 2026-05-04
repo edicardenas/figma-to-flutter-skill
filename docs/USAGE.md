@@ -63,6 +63,6 @@ The skill should never:
 
 ## When to bring in the companion skills
 
-- Use `flutter-architecture` first if feature boundaries, routing, or folder structure are undefined.
-- Use `flutter-layout` after the first faithful translation if the UI must adapt across breakpoints or form factors.
-- Use `flutter-performance` before merging if the generated screen includes long lists, image-heavy sections, nested scroll views, or expensive rebuild paths.
+- Use `flutter-apply-architecture-best-practices` first if feature boundaries, routing, or folder structure are undefined.
+- Use `flutter-build-responsive-layout` after the first faithful translation if the UI must adapt across breakpoints or form factors.
+- Use `mindrally/skills@flutter` before merging if the generated screen includes long lists, image-heavy sections, nested scroll views, or expensive rebuild paths, since it is the current installable fallback with explicit Flutter performance guidance.

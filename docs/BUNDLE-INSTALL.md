@@ -5,9 +5,9 @@
 Install the complete recommended stack in a transparent way:
 
 - `figma-to-flutter`
-- `flutter-architecture`
-- `flutter-layout`
-- `flutter-performance`
+- `flutter-apply-architecture-best-practices`
+- `flutter-build-responsive-layout`
+- `flutter` from `mindrally/skills`
 
 ## Why this exists
 
@@ -47,9 +47,9 @@ Codex needs to restart to pick up newly installed skills.
 It does exactly this:
 
 1. Installs this repository's local `figma-to-flutter` skill into your Codex skills directory
-2. Installs `flutter-architecture` from `flutter/skills`
-3. Installs `flutter-layout` from `flutter/skills`
-4. Installs `flutter-performance` from `flutter/skills`
+2. Installs `flutter-apply-architecture-best-practices` from `flutter/skills`
+3. Installs `flutter-build-responsive-layout` from `flutter/skills`
+4. Installs `flutter` from `mindrally/skills` as the current installable fallback that includes performance guidance
 5. Runs `check-bundle.sh`
 6. Fails if any required skill is still missing
 
@@ -58,24 +58,24 @@ It does exactly this:
 It checks that these skill folders exist in the target skills directory:
 
 - `figma-to-flutter`
-- `flutter-architecture`
-- `flutter-layout`
-- `flutter-performance`
+- `flutter-apply-architecture-best-practices`
+- `flutter-build-responsive-layout`
+- `flutter`
 
 Required companion skills:
 
-- `flutter-architecture`
-- `flutter-layout`
-- `flutter-performance`
+- `flutter-apply-architecture-best-practices`
+- `flutter-build-responsive-layout`
+- `mindrally/skills@flutter`
 
 ## How the companion skills are installed
 
 The script uses the public install commands exposed on `skills.sh`:
 
 ```bash
-npx skills add https://github.com/flutter/skills --skill flutter-architecture -g -y
-npx skills add https://github.com/flutter/skills --skill flutter-layout -g -y
-npx skills add https://github.com/flutter/skills --skill flutter-performance -g -y
+npx skills add https://github.com/flutter/skills --skill flutter-apply-architecture-best-practices -a codex -g -y
+npx skills add https://github.com/flutter/skills --skill flutter-build-responsive-layout -a codex -g -y
+npx skills add mindrally/skills@flutter -a codex -g -y
 ```
 
 ## Options
@@ -108,9 +108,9 @@ Install only the companion skills:
 
 This installs only:
 
-- `flutter-architecture`
-- `flutter-layout`
-- `flutter-performance`
+- `flutter-apply-architecture-best-practices`
+- `flutter-build-responsive-layout`
+- `mindrally/skills@flutter`
 
 Install into a custom skills directory:
 
@@ -132,23 +132,23 @@ Check a custom skills directory:
 
 ## Troubleshooting
 
-### Error: missing `flutter-architecture`, `flutter-layout`, or `flutter-performance`
+### Error: missing companion skills after bundle install
 
 If you see output like:
 
 ```text
 Missing required skills in ...
-- flutter-architecture
-- flutter-layout
-- flutter-performance
+- flutter-apply-architecture-best-practices
+- flutter-build-responsive-layout
+- flutter
 ```
 
 there are two common causes:
 
 1. The skills CLI installed into `~/.agents/skills` while an older checker was looking at `~/.codex/skills`
-2. The upstream `flutter/skills` repository currently exposed to the CLI does not contain installable skill IDs with those exact names
+2. The older conceptual companion names were not the same as the skill IDs currently installable from the public ecosystem
 
-This repository now checks `~/.agents/skills` first and fails earlier with a more explicit explanation if the upstream companion skill IDs do not resolve.
+This repository now checks `~/.agents/skills` first and targets the currently installable companion equivalents.
 
 ## Recommendation for public users
 

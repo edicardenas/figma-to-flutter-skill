@@ -15,9 +15,9 @@ SKILLS_DIR="${DEFAULT_SKILLS_DIR}"
 
 REQUIRED_SKILLS=(
   "figma-to-flutter"
-  "flutter-architecture"
-  "flutter-layout"
-  "flutter-performance"
+  "flutter-apply-architecture-best-practices"
+  "flutter-build-responsive-layout"
+  "flutter"
 )
 
 usage() {
@@ -41,9 +41,9 @@ while [[ $# -gt 0 ]]; do
       ;;
     --no-local)
       REQUIRED_SKILLS=(
-        "flutter-architecture"
-        "flutter-layout"
-        "flutter-performance"
+        "flutter-apply-architecture-best-practices"
+        "flutter-build-responsive-layout"
+        "flutter"
       )
       shift
       ;;

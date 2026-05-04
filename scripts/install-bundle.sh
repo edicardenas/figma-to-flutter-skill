@@ -15,11 +15,10 @@ fi
 
 SKILLS_DEST_DIR="${DEFAULT_SKILLS_DIR}"
 
-COMPANION_REPO="https://github.com/flutter/skills"
-COMPANION_SKILLS=(
-  "flutter-architecture"
-  "flutter-layout"
-  "flutter-performance"
+COMPANION_INSTALL_SPECS=(
+  "https://github.com/flutter/skills|flutter-apply-architecture-best-practices|architecture companion"
+  "https://github.com/flutter/skills|flutter-build-responsive-layout|layout companion"
+  "mindrally/skills@flutter||performance fallback"
 )
 
 usage() {
@@ -88,31 +87,23 @@ if [[ ${INSTALL_LOCAL} -eq 1 ]]; then
 fi
 
 if [[ ${INSTALL_COMPANIONS} -eq 1 ]]; then
-  for skill in "${COMPANION_SKILLS[@]}"; do
-    echo "Installing companion skill: ${skill}"
-    if ! npx skills add "${COMPANION_REPO}" --skill "${skill}" -a codex -g -y; then
+  for spec in "${COMPANION_INSTALL_SPECS[@]}"; do
+    IFS='|' read -r source skill label <<< "${spec}"
+    echo "Installing companion skill: ${label}"
+    if [[ -n "${skill}" ]]; then
+      install_cmd=(npx skills add "${source}" --skill "${skill}" -a codex -g -y)
+    else
+      install_cmd=(npx skills add "${source}" -a codex -g -y)
+    fi
+
+    if ! "${install_cmd[@]}"; then
       cat >&2 <<EOF
 
-Failed to install companion skill '${skill}'.
+Failed to install companion skill '${label}'.
 
 Why this happens:
-- As of 2026-05-04, the public skills.sh pages for these Flutter companion skills point to install commands using '${COMPANION_REPO}'.
-- In practice, the current public flutter/skills repository exposed to the CLI does not contain installable skill IDs named:
-  - flutter-architecture
-  - flutter-layout
-  - flutter-performance
-
-What the CLI currently reports as installable in flutter/skills:
-- flutter-apply-architecture-best-practices
-- flutter-build-responsive-layout
-- flutter-fix-layout-issues
-- flutter-add-integration-test
-- flutter-add-widget-preview
-- flutter-add-widget-test
-- flutter-implement-json-serialization
-- flutter-setup-declarative-routing
-- flutter-setup-localization
-- flutter-use-http-package
+- The upstream skills ecosystem changed and the originally intended companion IDs are not consistently installable via the CLI.
+- This repository now targets the current installable equivalents instead of the older conceptual names.
 
 The bundle installer stopped here on purpose so the failure is explicit.
 See docs/BUNDLE-INSTALL.md for the current troubleshooting note.
