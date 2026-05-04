@@ -2,10 +2,18 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-LOCAL_SKILL_DIR="${ROOT_DIR}/figma-to-flutter"
-CODEX_HOME_DIR="${CODEX_HOME:-$HOME/.codex}"
-SKILLS_DEST_DIR="${CODEX_HOME_DIR}/skills"
-LOCAL_DEST_DIR="${SKILLS_DEST_DIR}/figma-to-flutter"
+LOCAL_SKILL_NAME="figma-to-flutter"
+DEFAULT_SKILLS_DIR=""
+
+if [[ -d "$HOME/.agents/skills" ]]; then
+  DEFAULT_SKILLS_DIR="$HOME/.agents/skills"
+elif [[ -d "${CODEX_HOME:-$HOME/.codex}/skills" ]]; then
+  DEFAULT_SKILLS_DIR="${CODEX_HOME:-$HOME/.codex}/skills"
+else
+  DEFAULT_SKILLS_DIR="$HOME/.agents/skills"
+fi
+
+SKILLS_DEST_DIR="${DEFAULT_SKILLS_DIR}"
 
 COMPANION_REPO="https://github.com/flutter/skills"
 COMPANION_SKILLS=(
@@ -24,11 +32,11 @@ Usage:
 Options:
   --local-only      Install only the local figma-to-flutter skill.
   --companions-only Install only the companion skills from flutter/skills.
-  --dest <dir>      Override the target skills directory. Default: $CODEX_HOME/skills or ~/.codex/skills
+  --dest <dir>      Override the target skills directory. Default: ~/.agents/skills, fallback ~/.codex/skills
 
 Notes:
-  - Companion skills are installed with: npx skills add https://github.com/flutter/skills --skill <name> -g -y
-  - The local skill is installed by copying this repo's figma-to-flutter folder into the target skills directory.
+  - Companion skills are installed with the public skills CLI.
+  - The local skill is installed with: npx skills add <local-path> --skill figma-to-flutter -a codex -g -y
   - Restart Codex after installation so the runtime picks up new skills.
 EOF
 }
@@ -48,7 +56,6 @@ while [[ $# -gt 0 ]]; do
       ;;
     --dest)
       SKILLS_DEST_DIR="${2:?missing value for --dest}"
-      LOCAL_DEST_DIR="${SKILLS_DEST_DIR}/figma-to-flutter"
       shift 2
       ;;
     -h|--help)
@@ -71,20 +78,47 @@ fi
 mkdir -p "${SKILLS_DEST_DIR}"
 
 if [[ ${INSTALL_LOCAL} -eq 1 ]]; then
-  if [[ ! -d "${LOCAL_SKILL_DIR}" ]]; then
-    echo "Local skill directory not found: ${LOCAL_SKILL_DIR}" >&2
+  if [[ ! -d "${ROOT_DIR}/figma-to-flutter" ]]; then
+    echo "Local skill directory not found: ${ROOT_DIR}/figma-to-flutter" >&2
     exit 1
   fi
 
-  rm -rf "${LOCAL_DEST_DIR}"
-  cp -R "${LOCAL_SKILL_DIR}" "${LOCAL_DEST_DIR}"
-  echo "Installed local skill to ${LOCAL_DEST_DIR}"
+  echo "Installing local skill: ${LOCAL_SKILL_NAME}"
+  npx skills add "${ROOT_DIR}" --skill "${LOCAL_SKILL_NAME}" -a codex -g -y
 fi
 
 if [[ ${INSTALL_COMPANIONS} -eq 1 ]]; then
   for skill in "${COMPANION_SKILLS[@]}"; do
     echo "Installing companion skill: ${skill}"
-    npx skills add "${COMPANION_REPO}" --skill "${skill}" -g -y
+    if ! npx skills add "${COMPANION_REPO}" --skill "${skill}" -a codex -g -y; then
+      cat >&2 <<EOF
+
+Failed to install companion skill '${skill}'.
+
+Why this happens:
+- As of 2026-05-04, the public skills.sh pages for these Flutter companion skills point to install commands using '${COMPANION_REPO}'.
+- In practice, the current public flutter/skills repository exposed to the CLI does not contain installable skill IDs named:
+  - flutter-architecture
+  - flutter-layout
+  - flutter-performance
+
+What the CLI currently reports as installable in flutter/skills:
+- flutter-apply-architecture-best-practices
+- flutter-build-responsive-layout
+- flutter-fix-layout-issues
+- flutter-add-integration-test
+- flutter-add-widget-preview
+- flutter-add-widget-test
+- flutter-implement-json-serialization
+- flutter-setup-declarative-routing
+- flutter-setup-localization
+- flutter-use-http-package
+
+The bundle installer stopped here on purpose so the failure is explicit.
+See docs/BUNDLE-INSTALL.md for the current troubleshooting note.
+EOF
+      exit 1
+    fi
   done
 fi
 

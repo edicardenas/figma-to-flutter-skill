@@ -130,6 +130,26 @@ Check a custom skills directory:
 - `install-bundle.sh` is the supported way to install the full stack from this repo
 - After installation, restart Codex so the runtime picks up the newly installed skills
 
+## Troubleshooting
+
+### Error: missing `flutter-architecture`, `flutter-layout`, or `flutter-performance`
+
+If you see output like:
+
+```text
+Missing required skills in ...
+- flutter-architecture
+- flutter-layout
+- flutter-performance
+```
+
+there are two common causes:
+
+1. The skills CLI installed into `~/.agents/skills` while an older checker was looking at `~/.codex/skills`
+2. The upstream `flutter/skills` repository currently exposed to the CLI does not contain installable skill IDs with those exact names
+
+This repository now checks `~/.agents/skills` first and fails earlier with a more explicit explanation if the upstream companion skill IDs do not resolve.
+
 ## Recommendation for public users
 
 In the public README, position this repository as:

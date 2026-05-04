@@ -1,8 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CODEX_HOME_DIR="${CODEX_HOME:-$HOME/.codex}"
-SKILLS_DIR="${CODEX_HOME_DIR}/skills"
+DEFAULT_SKILLS_DIR=""
+
+if [[ -d "$HOME/.agents/skills" ]]; then
+  DEFAULT_SKILLS_DIR="$HOME/.agents/skills"
+elif [[ -d "${CODEX_HOME:-$HOME/.codex}/skills" ]]; then
+  DEFAULT_SKILLS_DIR="${CODEX_HOME:-$HOME/.codex}/skills"
+else
+  DEFAULT_SKILLS_DIR="$HOME/.agents/skills"
+fi
+
+SKILLS_DIR="${DEFAULT_SKILLS_DIR}"
 
 REQUIRED_SKILLS=(
   "figma-to-flutter"
@@ -19,7 +28,7 @@ Usage:
   ./scripts/check-bundle.sh [--dest <skills-dir>] [--no-local]
 
 Options:
-  --dest <dir>  Override the skills directory. Default: $CODEX_HOME/skills or ~/.codex/skills
+  --dest <dir>  Override the skills directory. Default: ~/.agents/skills, fallback ~/.codex/skills
   --no-local    Do not require the local figma-to-flutter skill; check only the companion skills
 EOF
 }
